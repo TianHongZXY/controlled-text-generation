@@ -293,7 +293,8 @@ class RNN_VAE(nn.Module):
 
             output, h = self.decoder(emb, h)
             y = self.decoder_fc(output).view(-1)
-            y = F.softmax(y/temp, dim=0) # 这里好像不太好啊,如果temp比较小岂不是overflow了
+            # 这里好像不太好啊,如果temp比较小岂不是overflow了,可能是F里的softmax自带了减去最大值再去softmax
+            y = F.softmax(y/temp, dim=0)
 
             idx = torch.multinomial(y, num_samples=1)
 
