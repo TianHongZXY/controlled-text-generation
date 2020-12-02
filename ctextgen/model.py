@@ -150,6 +150,7 @@ class RNN_VAE(nn.Module):
         """
         Inputs must be embeddings: seq_len x mbsize
         """
+        # 将部分词变为<unk>，为什么呢？
         dec_inputs = self.word_dropout(inputs)
 
         # Forward
